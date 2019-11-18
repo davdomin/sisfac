@@ -1,23 +1,18 @@
-#column_left {
-	background-color: #515151;
+.fa-1x {
+font-size: 1.5rem;
 }
-
-.nav-list li a {
-	text-decoration: none;
-	display: block;
-	padding: 10px;
-	cursor: pointer;
-	border-bottom: 1px solid #515151 !important;
-	color: #9d9d9d;
+.navbar-toggler.toggler-example {
+cursor: pointer;
 }
-
-.nav-list > li > a {
-	color: #C4C4C4;
-	font-size: 14px;
-	padding-left: 13px !important;
-	border-bottom: 1px solid #585858;
+.dark-blue-text {
+color: #0A38F5;
 }
-
-.nav-list > li > a:hover {
-	background-color: #444444;
+.dark-pink-text {
+color: #AC003A;
+}
+.dark-amber-text {
+color: #ff6f00;
+}
+.dark-teal-text {
+color: #004d40;
 }
