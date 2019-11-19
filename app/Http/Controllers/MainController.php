@@ -9,9 +9,9 @@ class MainController extends Controller
 {
     //
     public function getOpciones(){
-      return Menu::pluck("nombre","url")->all();
-
+      return Menu::where("id_parent","<>",0)->get(["nombre as text","icon as img"])->toJson();
     }
+
     public function test(){
       $menu = Helper::getMenu(0);
       $autocomplete = Menu::select("nombre","url")->where("id_parent","<>",0)->get();

@@ -22,12 +22,13 @@
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="css/menu.css">
+
 </head>
 
 <body>
   <nav> <!-- navbar content here  --> </nav>
 
-  <ul id="slide-out" class="sidenav">
+  <ul id="slide-out" class="sidenav sidenav-fixed">
     <li><div class="user-view">
       <div class="background">
         <img src="images/office.jpg">
@@ -39,33 +40,36 @@
        <div class="input-field col s12">
          <i class="material-icons prefix">textsms</i>
          <input type="text" id="txtOpciones" class="autocomplete">
-         <label for="autocomplete-input">Buscar</label>
+         <label for="autocomplete-input"></label>
        </div>
-
-    <?php echo  $menu;?>
+    <ul class="collapsible">
+      <?=$menu;?>
+    </ul>
   </ul>
   <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-
-
    <script>
+   document.addEventListener('DOMContentLoaded',
+    function() {
+        var elems = document.querySelectorAll('.sidenav');
 
-   document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.sidenav');
-   var instances = M.Sidenav.init(elems, options);
-});
+        var instances = M.Sidenav.init(elems, {});
+        elems = document.querySelectorAll('.autocomplete');
+        instances = M.Autocomplete.init(elems, {});
+        elems = document.querySelectorAll('.collapsible');
+        instances = M.Collapsible.init(elems, {});
+      }
+    );
 
-// Initialize collapsible (uncomment the lines below if you use the dropdown variation)
-// var collapsibleElem = document.querySelector('.collapsible');
-// var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
+    $(document).ready(function(){
+      $('.sidenav').sidenav();
+      $('.collapsible').collapsible();
+      $.get("getOpciones",function(e) {
+        console.log(e);
+          $("#txtOpciones").autocomplete({
+            data:e
+          });
+      });
 
-// Or with jQuery
-$(document).ready(function(){
-  $('.sidenav').sidenav();
-
-  $.get( "getOpciones", function( e ) {
-    $('#txtOpciones').autocomplete({data:e});
-    console.log(e);
-  });
 });
    </script>
 </body>

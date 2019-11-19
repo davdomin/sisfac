@@ -15,5 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test' , 'MainController@test' );
-Route::get('/getOpciones' , 'MainController@getOpciones' );
+Route::get('/test' ,'MainController@test' );
+Route::get('/getOpciones' ,'MainController@getOpciones' );
