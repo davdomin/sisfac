@@ -24,38 +24,50 @@
   <link rel="stylesheet" href="css/menu.css">
 </head>
 
-
-
-</head>
-
-
-
 <body>
+  <nav> <!-- navbar content here  --> </nav>
 
-  <ul class="collapsible">    
-     <li>
-       <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
-     </li>
-     <li>
-       <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
-     </li>
-     <li>
-       <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
-     </li>
-   </ul>
+  <ul id="slide-out" class="sidenav">
+    <li><div class="user-view">
+      <div class="background">
+        <img src="images/office.jpg">
+      </div>
+      <a href="#user"><img class="circle" src="images/davdomin.jpg"></a>
+      <a href="#name"><span class="white-text name">David Dominguez</span></a>
+      <a href="#email"><span class="white-text email">davdomin@gmail.com</span></a>
+    </div></li>
+       <div class="input-field col s12">
+         <i class="material-icons prefix">textsms</i>
+         <input type="text" id="txtOpciones" class="autocomplete">
+         <label for="autocomplete-input">Buscar</label>
+       </div>
+
+    <?php echo  $menu;?>
+  </ul>
+  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
 
    <script>
+
    document.addEventListener('DOMContentLoaded', function() {
-       var elems = document.querySelectorAll('.collapsible');
-       var instances = M.Collapsible.init(elems, options);
-     });
+  var elems = document.querySelectorAll('.sidenav');
+   var instances = M.Sidenav.init(elems, options);
+});
 
-     // Or with jQuery
+// Initialize collapsible (uncomment the lines below if you use the dropdown variation)
+// var collapsibleElem = document.querySelector('.collapsible');
+// var collapsibleInstance = M.Collapsible.init(collapsibleElem, options);
 
-     $(document).ready(function(){
-       $('.collapsible').collapsible();
-     });
-              </script>
+// Or with jQuery
+$(document).ready(function(){
+  $('.sidenav').sidenav();
+
+  $.get( "getOpciones", function( e ) {
+    $('#txtOpciones').autocomplete({data:e});
+    console.log(e);
+  });
+});
+   </script>
 </body>
 
 </html>
