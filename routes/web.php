@@ -15,5 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test' ,'MainController@test' );
-Route::get('/getOpciones' ,'MainController@getOpciones' );
+Route::get('/menu' ,'MainController@showMenu' );
+Route::get('/sistema/perfiles' ,'SistemaController@perfiles' );
+Route::get('/getJSON' ,'MainController@getJSON' );

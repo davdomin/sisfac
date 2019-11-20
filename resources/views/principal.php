@@ -22,15 +22,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="css/menu.css">
 
-  <link href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.common.min.css" rel="stylesheet" />
-  <link href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.default.min.css" rel="stylesheet" />
-  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.common-bootstrap.min.css" />
+  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.bootstrap.min.css" />
+  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.dataviz.min.css" />
+  <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.dataviz.bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
   <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/kendo.all.min.js"></script>
   <script src="js/materialize.min.js"></script>
+  <script src="js/themechooser.js"></script>
 </head>
 <body>
-  <nav> <!-- navbar content here  --> </nav>
-
+  <nav> <center><div id="titulo"></div></center> </nav>
+  <div class="container">
   <ul id="slide-out" class="sidenav sidenav-fixed">
     <li><div class="user-view">
       <div class="background">
@@ -40,21 +43,40 @@
       <a href="#name"><span class="white-text name">David Dominguez</span></a>
       <a href="#email"><span class="white-text email">davdomin@gmail.com</span></a>
     </div></li>
-       <div class="input-field col s12">
+    <div class="row">
+      <div class="input-field col s12">
          <i class="material-icons prefix">textsms</i>
-         <input id="txtMenu" style="width: 100%;" />
+         <input id="txtMenu" class="validate" style="width:100%"/>
          <label for="txtMenu"></label>
        </div>
-    <ul class="collapsible">
+    </div>
+    <ul class="collapsible popout" style="transform: translateX(0px);">
       <?=$menu;?>
     </ul>
   </ul>
-  <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-   <script>
+    <div id='contenido' style="fixed">
+    </div>
+  </div>
+  <script>
+   function cargar_menu(menu_id)
+   {
+     $.ajax({
+            type: 'GET',
+            dataType: 'JSON',
+            async: false,
+            url: 'getJSON',
+            data: {opcion: "getMenu", id_menu: menu_id},
+            success: function (e){
+              var datos = e[0]
+              $("#contenido").load(datos.url);
+              $("#titulo").html(datos.nombre);
+            }
+        });
+   }
+
    document.addEventListener('DOMContentLoaded',
     function() {
         var elems = document.querySelectorAll('.sidenav');
-
         var instances = M.Sidenav.init(elems, {});
         elems = document.querySelectorAll('.autocomplete');
         instances = M.Autocomplete.init(elems, {});
@@ -69,8 +91,12 @@
       var dataSource = new kendo.data.DataSource({
         transport: {
           /* transport configuration */
-          read:"getOpciones",
-          dataType:"json"
+          read:{
+            url:"getJSON",
+            data: {opcion :"getOpciones"},
+            dataType:"json"
+          },
+
         },
       });
 
@@ -80,7 +106,6 @@
             dataTextField: "nombre"
           }
         );
-
       });
    </script>
 </body>

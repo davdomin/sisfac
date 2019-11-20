@@ -15,9 +15,9 @@ class Helper
           $clase ="class='subheader'";
       }
       $html .=  "<li>";
-      $html .="<div class ='collapsible-header'><i class='material-icons'>list</i> <a $clase href='".$itemMenu->url ."'>".$itemMenu->nombre."</a> </div>";
+      $html .="<div class ='collapsible-header'><i class='material-icons'>list</i> <span $clase>".$itemMenu->nombre."</span> </div>";
       $html .= "<div class ='collapsible-body'>";
-	    $html .= "<ul class='nav nav-list'>".self::getHijos($itemMenu->id)."</ul>"; //call  recursively
+	    $html .= "<ul class='nav nav-list collection'>".self::getHijos($itemMenu->id)."</ul>"; //call  recursively
       $html .= "</div>";
       $html .=  "</li>";
     }
@@ -28,7 +28,7 @@ class Helper
     $html = "";
   	$menu = Menu::where("id_parent",$parent_id)->get();
     foreach ($menu as $itemMenu) {
-      $html .="<li><a href='".$itemMenu->url ."'>".$itemMenu->nombre."</a></li>";
+      $html .="<a style='padding:10px;' class='collection-item'>  <div onclick='cargar_menu($itemMenu->id)'>$itemMenu->nombre </div></a>";
     }
     return $html;
   }
