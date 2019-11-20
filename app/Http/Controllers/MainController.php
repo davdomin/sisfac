@@ -5,11 +5,15 @@ use App\Menu;
 use App\Helpers\Helper;
 use Illuminate\Http\Request;
 
+
+
 class MainController extends Controller
 {
     //
     public function getOpciones(){
-      return Menu::where("id_parent","<>",0)->get(["nombre as text","icon as img"])->toJson();
+      $items= Menu::where("id_parent","<>",0)->get();
+      return response()->json($items);
+
     }
 
     public function test(){

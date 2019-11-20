@@ -13,18 +13,21 @@
 
 
     <!-- Compiled and minified JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-<script src="js/materialize.min.js"></script>
+
   <!--Let browser know website is optimized for mobile-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="css/menu.css">
 
+  <link href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.common.min.css" rel="stylesheet" />
+  <link href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.default.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+  <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/kendo.all.min.js"></script>
+  <script src="js/materialize.min.js"></script>
 </head>
-
 <body>
   <nav> <!-- navbar content here  --> </nav>
 
@@ -39,8 +42,8 @@
     </div></li>
        <div class="input-field col s12">
          <i class="material-icons prefix">textsms</i>
-         <input type="text" id="txtOpciones" class="autocomplete">
-         <label for="autocomplete-input"></label>
+         <input id="txtMenu" style="width: 100%;" />
+         <label for="txtMenu"></label>
        </div>
     <ul class="collapsible">
       <?=$menu;?>
@@ -63,14 +66,22 @@
     $(document).ready(function(){
       $('.sidenav').sidenav();
       $('.collapsible').collapsible();
-      $.get("getOpciones",function(e) {
-        console.log(e);
-          $("#txtOpciones").autocomplete({
-            data:e
-          });
+      var dataSource = new kendo.data.DataSource({
+        transport: {
+          /* transport configuration */
+          read:"getOpciones",
+          dataType:"json"
+        },
       });
 
-});
+        $("#txtMenu").kendoAutoComplete(
+          {
+            dataSource:dataSource,
+            dataTextField: "nombre"
+          }
+        );
+
+      });
    </script>
 </body>
 
