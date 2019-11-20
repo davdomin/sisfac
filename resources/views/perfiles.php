@@ -25,4 +25,17 @@
     </div>
   </form>
 </div>
+<a id="btnGuardar" class="waves-effect waves-light btn-large">Guardar</a>
+
 </div>
+
+
+<script>
+$(document).ready(function(){
+  $("#btnGuardar").kendoButton({
+    click:function(e) {
+      alert("a");
+    }
+  });
+});
+</script>

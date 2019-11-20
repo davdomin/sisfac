@@ -67,7 +67,7 @@
             url: 'getJSON',
             data: {opcion: "getMenu", id_menu: menu_id},
             success: function (e){
-              var datos = e[0]
+              var datos = e[0];
               $("#contenido").load(datos.url);
               $("#titulo").html(datos.nombre);
             }
